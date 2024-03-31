@@ -1,0 +1,57 @@
+// Define an interface
+abstract class Shape {
+  double area();
+}
+
+// Implement the interface with a class
+class Rectangle implements Shape {
+  double width;
+  double height;
+
+  Rectangle(this.width, this.height);
+
+  @override
+  double area() {
+    return width * height;
+  }
+}
+
+// Create a subclass that overrides a method
+class Square extends Rectangle {
+  Square(double side) : super(side, side);
+}
+
+// Create a method that initializes an instance with data from a file
+Rectangle initializeFromFile(String fileName) {
+  final fileData = readFile(fileName);
+  final width = double.parse(fileData[0]);
+  final height = double.parse(fileData[1]);
+  return Rectangle(width, height);
+}
+
+// Method demonstrating the use of a loop
+void printAreas(List<Shape> shapes) {
+  for (final shape in shapes) {
+    print("Area: ${shape.area()}");
+  }
+}
+
+// Dummy function to read file data (simulated)
+List<String> readFile(String fileName) {
+  // Simulated file reading, returning dummy data
+  return ["4", "6"];
+}
+
+void main() {
+  final square = Square(5);
+  print("Square area: ${square.area()}");
+
+  final rectangle = Rectangle(4, 6);
+  print("Rectangle area: ${rectangle.area()}");
+
+  final rectangleFromFile = initializeFromFile('dimensions.txt');
+  print("Rectangle area from file: ${rectangleFromFile.area()}");
+
+  final shapes = [square, rectangle, rectangleFromFile];
+  printAreas(shapes);
+}
